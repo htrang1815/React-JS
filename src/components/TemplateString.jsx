@@ -15,15 +15,16 @@ function TemplateString() {
   };
 
   const handleFileChange = (e) => {
-    console.log("object0");
-    e.preventDefault();
+    console.log("handleFileChange");
+    // e.preventDefault();
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onload = (e) => {
       const contents = e.target.result;
       console.log(contents);
-
+      console.log("input", inputValue);
+      console.log(JSON.parse(inputValue));
       if (isObject(JSON.parse(inputValue))) {
         const inputValueParseObj = JSON.parse(inputValue);
 
@@ -63,17 +64,17 @@ function TemplateString() {
     e.preventDefault();
     console.log("submit");
     console.log(inputValue);
-    console.log(fileContent);
+    console.log("fileContent", fileContent);
     if (fileContent) {
       setIsShowContent(true);
       const textContent = fileContent;
       downloadTxTFile(textContent);
     }
-    // setInputValue("");
+    setInputValue("");
   };
 
   return (
-    <div className="flex h-[100vh]">
+    <div className="flex h-[100vh] overflow-hidden">
       <NavBar></NavBar>
       <div className="bg-[#bbbb] w-full p-[50px] text-center">
         <h1 className="font-[700]">Covert JavaScript</h1>
@@ -99,7 +100,7 @@ function TemplateString() {
                     className="w-[85%] min-h-[50px] px-[8px]"
                     placeholder="Array params"
                     onChange={handleInputChange}
-                    // value={inputValue}
+                    value={inputValue}
                   />
                 </div>
                 <div className="flex w-full">
@@ -124,9 +125,9 @@ function TemplateString() {
                   <span className="text-[20px] font-[500] pr-[20px] w-[15%]">
                     Output :{" "}
                   </span>
-                  <p className="bg-[#fff] px-[5px] py-[10px] w-[85%] min-h-[100px] text-left">
+                  <p className="bg-[#fff] px-[5px] pt-[10px] w-[85%] max-h-[180px] min-h-[100px] text-left overflow-scroll">
                     {fileContent && isShowContent && (
-                      <div>
+                      <div className="w-full">
                         <h2>File Content:</h2>
                         <pre>{fileContent}</pre>
                       </div>
